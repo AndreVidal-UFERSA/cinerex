@@ -12,13 +12,17 @@ public class Venda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    private Long id;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Ingresso> ingressos;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusVenda status;
 
     // Metodos de validacao
 
@@ -54,8 +58,16 @@ public class Venda {
     public Venda(List<Ingresso> ingressos) {
         this.ingressos = validarIngressos(ingressos);
         this.valorTotal = calcularValorTotal(ingressos);
+        this.status = StatusVenda.PENDENTE;
     }
 
+    public void confirmar() {
+        this.status = StatusVenda.CONFIRMADA;
+    }
+
+    public void cancelar() {
+        this.status = StatusVenda.CANCELADA;
+    }
 
     public void adicionarIngresso(Ingresso ingresso) {
         Objects.requireNonNull(ingresso, "Ingresso nao pode ser null");
@@ -73,9 +85,8 @@ public class Venda {
         this.valorTotal = calcularValorTotal(this.ingressos);
     }
 
-
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
     public BigDecimal getValorTotal() {
@@ -84,5 +95,9 @@ public class Venda {
 
     public List<Ingresso> getIngressos() {
         return ingressos;
+    }
+
+    public StatusVenda getStatus() {
+        return status;
     }
 }
