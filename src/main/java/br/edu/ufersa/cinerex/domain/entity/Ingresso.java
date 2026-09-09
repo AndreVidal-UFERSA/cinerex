@@ -18,7 +18,7 @@ public class Ingresso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "tipo_ingresso_id", nullable = false)
@@ -76,8 +76,8 @@ public class Ingresso {
     }
 
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
     public TipoIngresso getTipo() {

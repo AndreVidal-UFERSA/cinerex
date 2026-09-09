@@ -16,7 +16,7 @@ public class TipoIngresso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    private Long id;
 
     @Column(nullable = false, unique = true, length = 50)
     private String nome;
@@ -64,8 +64,8 @@ public class TipoIngresso {
     }
 
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {
