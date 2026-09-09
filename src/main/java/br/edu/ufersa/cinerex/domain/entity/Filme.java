@@ -18,7 +18,7 @@ public class Filme {
     private Classificacao classificacao;
 
     @Column(nullable = false, length = 4)
-    private int ano;
+    private Integer ano;
 
     @Column(nullable = false, length = 100)
     private String diretor;
@@ -35,7 +35,7 @@ public class Filme {
         return classificacao;
     }
 
-    private static int validarAno(int ano) {
+    private static Integer validarAno(Integer ano) {
         if (ano <= 0) throw new IllegalArgumentException("Ano deve ser maior que zero");
         return ano;
     }
@@ -49,7 +49,7 @@ public class Filme {
     // Construtor vazio necessario para o Spring Data JPA
     protected Filme() {}
 
-    public Filme(String nome, Classificacao classificacao, int ano, String diretor) {
+    public Filme(String nome, Classificacao classificacao, Integer ano, String diretor) {
         this.nome = validarNome(nome);
         this.classificacao = validarClassificacao(classificacao);
         this.ano = validarAno(ano);
@@ -64,7 +64,7 @@ public class Filme {
         this.classificacao = validarClassificacao(novaClassificacao);
     }
 
-    public void alterarAno(int novoAno) {
+    public void alterarAno(Integer novoAno) {
         this.ano = validarAno(novoAno);
     }
 
@@ -84,7 +84,7 @@ public class Filme {
         return classificacao;
     }
 
-    public int getAno() {
+    public Integer getAno() {
         return ano;
     }
 
