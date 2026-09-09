@@ -1,7 +1,5 @@
 package br.edu.ufersa.cinerex.api.controller;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +23,7 @@ public class FuncionarioController {
     // READ
 
     @GetMapping
-    public List<Object> getFuncionarios() {
+    public ResponseEntity<Void> getFuncionarios() {
         return null;
     }
 
