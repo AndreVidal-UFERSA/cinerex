@@ -1,8 +1,10 @@
-package br.edu.ufersa.cinerex.domain.entity;
+package br.edu.ufersa.cinerex.features.ingresso;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import br.edu.ufersa.cinerex.features.sessao.Sessao;
+import br.edu.ufersa.cinerex.features.tipoingresso.TipoIngresso;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

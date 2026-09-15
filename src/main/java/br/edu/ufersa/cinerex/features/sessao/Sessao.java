@@ -1,6 +1,7 @@
-package br.edu.ufersa.cinerex.domain.entity;
+package br.edu.ufersa.cinerex.features.sessao;
 
-import jakarta.persistence.Column;
+import br.edu.ufersa.cinerex.features.sala.Sala;
+import br.edu.ufersa.cinerex.features.filme.Filme;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

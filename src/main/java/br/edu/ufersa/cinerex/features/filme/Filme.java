@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.domain.entity;
+package br.edu.ufersa.cinerex.features.filme;
 
 import jakarta.persistence.*;
 import java.util.Objects;

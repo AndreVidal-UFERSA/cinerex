@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.api.controller;
+package br.edu.ufersa.cinerex.features.tipoingresso;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

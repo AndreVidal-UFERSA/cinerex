@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.domain.entity;
+package br.edu.ufersa.cinerex.features.tipoingresso;
 
 import java.math.BigDecimal;
 import java.util.Objects;

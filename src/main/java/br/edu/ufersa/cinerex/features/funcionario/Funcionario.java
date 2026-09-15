@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.domain.entity;
+package br.edu.ufersa.cinerex.features.funcionario;
 
 import java.math.BigDecimal;
 import java.util.Objects;

@@ -1,6 +1,4 @@
-package br.edu.ufersa.cinerex.domain.entity;
-
-import java.util.Objects;
+package br.edu.ufersa.cinerex.features.sala;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
