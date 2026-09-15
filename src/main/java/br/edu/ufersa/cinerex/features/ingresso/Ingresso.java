@@ -1,10 +1,10 @@
 package br.edu.ufersa.cinerex.features.ingresso;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 import br.edu.ufersa.cinerex.features.sessao.Sessao;
-import br.edu.ufersa.cinerex.features.tipoingresso.TipoIngresso;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,9 +22,8 @@ public class Ingresso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "tipo_ingresso_id", nullable = false)
-    private TipoIngresso tipo;
+    @Column(nullable = false)
+    private Boolean meia;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
@@ -35,11 +34,6 @@ public class Ingresso {
 
 
     // Metodos de validacao
-
-    private static TipoIngresso validarTipo(TipoIngresso tipo) {
-        Objects.requireNonNull(tipo, "Tipo do ingresso não pode ser null");
-        return tipo;
-    }
 
     private static BigDecimal validarValor(BigDecimal valor) {
         Objects.requireNonNull(valor, "Valor não pode ser null");
@@ -55,35 +49,31 @@ public class Ingresso {
         return sessao;
     }
 
+    private static Boolean validarMeia(Boolean meia) {
+        Objects.requireNonNull(meia, "Meia nao pode ser null");
+        return meia;
+    }
+
 
     // Construtor vazio necessario para o Spring Data JPA
 
     protected Ingresso() {}
 
 
-    public Ingresso(TipoIngresso tipo, Sessao sessao) {
-        this.tipo = validarTipo(tipo);
-        this.valor = validarValor(tipo.getValor());
+    public Ingresso(Sessao sessao, BigDecimal valor, Boolean meia) {
         this.sessao = validarSessao(sessao);
-    }
-
-
-    public void alterarTipo(TipoIngresso novoTipo) {
-        this.tipo = validarTipo(novoTipo);
-        this.valor = validarValor(novoTipo.getValor());
+        this.meia = validarMeia(meia);
+        this.valor = validarValor(valor);
+        if (meia)
+            this.valor = this.valor.divide(BigDecimal.TWO, RoundingMode.HALF_EVEN);
     }
 
     public void alterarSessao(Sessao novaSessao) {
         this.sessao = validarSessao(novaSessao);
     }
 
-
     public Long getId() {
         return id;
-    }
-
-    public TipoIngresso getTipo() {
-        return tipo;
     }
 
     public BigDecimal getValor() {
@@ -92,5 +82,9 @@ public class Ingresso {
 
     public Sessao getSessao() {
         return sessao;
+    }
+
+    public Boolean isMeia() {
+        return meia;
     }
 }
