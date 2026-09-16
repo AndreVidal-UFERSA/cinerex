@@ -54,11 +54,8 @@ public class Ingresso {
         return meia;
     }
 
-
     // Construtor vazio necessario para o Spring Data JPA
-
     protected Ingresso() {}
-
 
     public Ingresso(Sessao sessao, BigDecimal valor, Boolean meia) {
         this.sessao = validarSessao(sessao);
@@ -75,15 +72,12 @@ public class Ingresso {
     public Long getId() {
         return id;
     }
-
     public BigDecimal getValor() {
         return valor;
     }
-
     public Sessao getSessao() {
         return sessao;
     }
-
     public Boolean isMeia() {
         return meia;
     }

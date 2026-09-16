@@ -1,5 +1,6 @@
 package br.edu.ufersa.cinerex.features.ingresso;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,6 +9,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/tipo-ingresso")
 public class IngressoController {
+
+    @Autowired //Injeção de dependência
+    private IngressoRepository ingressoRepository;
 
     //CREATE
     @PostMapping
