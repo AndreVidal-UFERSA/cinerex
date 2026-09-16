@@ -10,9 +10,6 @@ import java.util.List;
 @RequestMapping("/api/v1/tipo-ingresso")
 public class IngressoController {
 
-    @Autowired //Injeção de dependência
-    private IngressoRepository ingressoRepository;
-
     //CREATE
     @PostMapping
     public ResponseEntity<Void> postIngresso(@RequestBody Object postIngressoRequest) {
