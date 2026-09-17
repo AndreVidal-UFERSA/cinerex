@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 
 @Entity
 @Table(name = "sala")
@@ -13,6 +15,14 @@ public class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    @Column (name = "Status", nullable = false)
+    private StatusSala Status;
+
+    @Enumerated(EnumType.STRING)
+    @Column (name = "Tipo", nullable = false)
+    private TipoSala tipoSala;
 
     @Column(name = "numero", nullable = false, unique = true)
     private Integer numero;
@@ -31,12 +41,28 @@ public class Sala {
         return numeroAssentos;
     }
 
+    private static TipoSala validarTipoSala(TipoSala tipoSala) {
+        if (tipoSala == null) {
+            throw new IllegalArgumentException("O tipo da sala não pode ser nulo");
+        }
+        return tipoSala;
+    }
+
+    private static StatusSala validarStatusSala(StatusSala status) {
+        if (status == null) {
+            throw new IllegalArgumentException("O status da sala não pode ser nulo");
+        }
+        return status;
+    }
+
     // Contrutor vazio necessario para o Spring Data JPA
     protected Sala() {}
 
-    public Sala(Integer numero, Integer numeroAssentos) {
+    public Sala(Integer numero, Integer numeroAssentos, TipoSala tipoSala) {
         this.numero = validarNumero(numero);
         this.numeroAssentos = validarNumeroAssentos(numeroAssentos);
+        this.tipoSala = tipoSala;
+        this.Status = StatusSala.LIVRE;
     }
 
     public void alterarNumero(Integer novoNumero) {
@@ -45,6 +71,20 @@ public class Sala {
 
     public void alterarNumeroAssentos(Integer novoNumeroAssentos) {
         this.numeroAssentos = validarNumeroAssentos(novoNumeroAssentos);
+    }
+
+    public void alterarStatus(StatusSala novoStatus) {
+        if (novoStatus == null) {
+            throw new IllegalArgumentException("O status da sala não pode ser nulo");
+        }
+        this.Status = novoStatus;
+    }
+
+    public void alterarTipoSala(TipoSala novoTipoSala) {
+        if (novoTipoSala == null) {
+            throw new IllegalArgumentException("O tipo da sala não pode ser nulo");
+        }
+        this.tipoSala = novoTipoSala;
     }
 
     public Long getId() {
