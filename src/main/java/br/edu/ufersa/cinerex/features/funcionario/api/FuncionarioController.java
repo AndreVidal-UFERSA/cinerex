@@ -4,6 +4,7 @@ import java.net.URI;
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ufersa.cinerex.features.funcionario.api.dto.FuncionarioPostRequest;
 import br.edu.ufersa.cinerex.features.funcionario.application.CriarFuncionarioCommand;
 import br.edu.ufersa.cinerex.features.funcionario.application.FuncionarioApplicationService;
 
 @RestController
 @RequestMapping("/api/v1/funcionario")
+@Validated
 public class FuncionarioController {
     private final FuncionarioApplicationService applicationService;
     private final FuncionarioMapper mapper;
