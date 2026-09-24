@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "filme")
-public class Filme {
+class Filme {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

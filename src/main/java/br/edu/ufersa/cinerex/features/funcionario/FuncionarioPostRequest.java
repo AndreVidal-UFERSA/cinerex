@@ -1,10 +1,10 @@
-package br.edu.ufersa.cinerex.features.funcionario.api;
+package br.edu.ufersa.cinerex.features.funcionario;
 
 import java.math.BigDecimal;
 
 import jakarta.validation.constraints.*;
 
-public record FuncionarioPostRequest(
+record FuncionarioPostRequest(
         @NotBlank String cpf,
         @NotBlank @Size(max = 100) String nome,
         @NotBlank @Size(max = 100) String login,

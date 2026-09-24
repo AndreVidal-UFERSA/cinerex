@@ -1,8 +1,8 @@
-package br.edu.ufersa.cinerex.features.funcionario.application;
+package br.edu.ufersa.cinerex.features.funcionario;
 
 import java.math.BigDecimal;
 
-public record CriarFuncionarioCommand(
+record CriarFuncionarioCommand(
         String cpf,
         String nome,
         String login,

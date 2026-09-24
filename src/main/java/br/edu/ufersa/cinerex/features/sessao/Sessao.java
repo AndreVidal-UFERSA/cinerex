@@ -1,29 +1,19 @@
 package br.edu.ufersa.cinerex.features.sessao;
 
-import br.edu.ufersa.cinerex.features.sala.Sala;
-import br.edu.ufersa.cinerex.features.filme.Filme;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "sessao")
-public class Sessao {
+class Sessao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "filme_id", nullable = false)
-    private Filme filme;
+    @Column(name = "filme_id", nullable = false)
+    private Long filmeId;
 
-    @ManyToOne
-    @JoinColumn(name = "sala_id", nullable = false)
-    private Sala sala;
+    @Column(name = "sala_id", nullable = false)
+    private Long salaId;
 
     protected Sessao() {}
 }

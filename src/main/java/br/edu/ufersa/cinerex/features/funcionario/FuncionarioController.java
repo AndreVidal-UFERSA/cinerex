@@ -1,6 +1,9 @@
-package br.edu.ufersa.cinerex.features.funcionario.api;
+package br.edu.ufersa.cinerex.features.funcionario;
 
 import java.net.URI;
+import java.util.List;
+import java.util.Optional;
+
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -14,17 +17,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ufersa.cinerex.features.funcionario.application.CriarFuncionarioCommand;
-import br.edu.ufersa.cinerex.features.funcionario.application.FuncionarioApplicationService;
-
 @RestController
 @RequestMapping("/api/v1/funcionario")
 @Validated
 public class FuncionarioController {
     private final FuncionarioApplicationService applicationService;
-    private final FuncionarioMapper mapper;
+    private final FuncionarioApiMapper mapper;
 
-    public FuncionarioController(FuncionarioApplicationService applicationService, FuncionarioMapper mapper) {
+    public FuncionarioController(FuncionarioApplicationService applicationService, FuncionarioApiMapper mapper) {
         this.applicationService = applicationService;
         this.mapper = mapper;
     }
@@ -42,13 +42,17 @@ public class FuncionarioController {
     // READ
 
     @GetMapping
-    public ResponseEntity<Void> getFuncionarios() {
-        return null;
+    public ResponseEntity<List<FuncionarioResponse>> getFuncionarios() {
+        return ResponseEntity.ok(applicationService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getFuncionario(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<FuncionarioResponse> getFuncionario(@PathVariable Long id) {
+        Optional<FuncionarioResponse> funcionarioResponseOptional = applicationService.encontrar(id);
+        if (funcionarioResponseOptional.isEmpty())
+            return ResponseEntity.notFound().build();
+        else
+            return ResponseEntity.ok(funcionarioResponseOptional.get());
     }
 
     // UPDATE

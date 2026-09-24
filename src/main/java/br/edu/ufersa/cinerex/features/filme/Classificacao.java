@@ -1,6 +1,6 @@
 package br.edu.ufersa.cinerex.features.filme;
 
-public enum Classificacao {
+enum Classificacao {
     LIVRE,
     DEZ,
     DOZE,

@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.features.funcionario.domain;
+package br.edu.ufersa.cinerex.features.funcionario;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -10,9 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "funcionario")
-public class Funcionario {
+class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
