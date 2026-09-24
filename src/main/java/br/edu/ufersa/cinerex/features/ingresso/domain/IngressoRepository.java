@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.features.ingresso;
+package br.edu.ufersa.cinerex.features.ingresso.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

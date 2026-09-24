@@ -1,13 +1,20 @@
-package br.edu.ufersa.cinerex.features.ingresso;
+package br.edu.ufersa.cinerex.features.ingresso.api;
 
+import br.edu.ufersa.cinerex.features.ingresso.domain.IngressoRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/tipo-ingresso")
+@RequestMapping("/api/v1/ingresso")
 public class IngressoController {
+
+    private final IngressoRepository ingressoRepository;
+
+    public IngressoController(IngressoRepository ingressoRepository){
+        this.ingressoRepository = ingressoRepository;
+    }
 
     //CREATE
     @PostMapping
@@ -18,7 +25,7 @@ public class IngressoController {
 
     // READ
     @GetMapping
-    public List<Object> getIngresso() {
+    public ResponseEntity<List<Object>> getIngresso() {
         // TODO: Implementar a listagem de ingresso
         return null;
     }
