@@ -2,6 +2,7 @@ package br.edu.ufersa.cinerex.shared.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,4 +31,14 @@ public class GlobalExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler (HttpMessageNotReadableException.class)
+    public ProblemDetail tratarMessagemIlegivel(HttpMessageNotReadableException ex){
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST,
+                "O corpo da requisição é inválido ou contém dados mal formatados. Verifique os dados.");
+        problem.setType(URI.create("about:blank"));
+        problem.setTitle("Corpo da requisição é ilegível");
+        problem.setProperty("timestamp", Instant.now());
+        return problem;
+    }
 }
