@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.features.funcionario;
+package br.edu.ufersa.cinerex.features.funcionario.domain;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -35,10 +35,8 @@ public class Funcionario {
     // Metodos de validacao
     private static String validarCpf(String cpf) {
         Objects.requireNonNull(cpf, "CPF nao pode ser null");
-        if (cpf.isBlank())
-            throw new IllegalArgumentException("CPF nao pode ser vazio");
-        if (!cpf.matches("^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$"))
-            throw new IllegalArgumentException("CPF tem formatacao incorreta");
+        if (!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}"))
+            throw new IllegalArgumentException("CPF invalido");
         return cpf;
     }
 
@@ -77,26 +75,6 @@ public class Funcionario {
         this.login = validarLogin(login);
         this.senha = validarSenha(senha);
         this.salario = validarSalario(salario);
-    }
-
-    public void alterarCpf(String novoCpf) {
-        this.cpf = validarCpf(novoCpf);
-    }
-
-    public void alterarNome(String novoNome) {
-        this.nome = validarNome(novoNome);
-    }
-
-    public void alterarLogin(String novoLogin) {
-        this.login = validarLogin(novoLogin);
-    }
-
-    public void alterarSenha(String novaSenha) {
-        this.senha = validarSenha(novaSenha);
-    }
-
-    public void alterarSalario(BigDecimal novoSalario) {
-        this.salario = validarSalario(novoSalario);
     }
 
     public Long getId() {

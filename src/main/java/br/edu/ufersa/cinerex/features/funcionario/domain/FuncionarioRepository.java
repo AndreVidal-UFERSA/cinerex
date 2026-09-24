@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.features.funcionario;
+package br.edu.ufersa.cinerex.features.funcionario.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
