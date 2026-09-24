@@ -2,10 +2,12 @@ package br.edu.ufersa.cinerex.features.ingresso.api;
 
 import br.edu.ufersa.cinerex.features.ingresso.domain.IngressoRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/api/v1/ingresso")
 public class IngressoController {
