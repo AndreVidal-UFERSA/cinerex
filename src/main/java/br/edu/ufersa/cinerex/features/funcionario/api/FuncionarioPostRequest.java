@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.features.funcionario.api.dto;
+package br.edu.ufersa.cinerex.features.funcionario.api;
 
 import java.math.BigDecimal;
 
