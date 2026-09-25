@@ -3,6 +3,7 @@ package br.edu.ufersa.cinerex.features.funcionario;
 import br.edu.ufersa.cinerex.features.funcionario.dto.FuncionarioResponse;
 import br.edu.ufersa.cinerex.features.funcionario.dto.RequestPostFuncionario;
 import br.edu.ufersa.cinerex.features.funcionario.dto.RequestPutFuncionario;
+import br.edu.ufersa.cinerex.shared.exceptions.RecursoNaoEncontrado;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +36,7 @@ class FuncionarioApplicationService {
     public void atualizarTotal(long id, RequestPutFuncionario mudancas) {
         Optional<Funcionario> funcionarioOptional = repository.findById(id);
         if (funcionarioOptional.isEmpty())
-            throw new FuncionarioNaoEncontradoException("Funcionario com id " + id + " nao encontrado");
+            throw new RecursoNaoEncontrado("Funcionario com id " + id + " nao encontrado");
         Funcionario funcionario = funcionarioOptional.get();
         funcionario.alterarNome(mudancas.nome());
         funcionario.alterarLogin(mudancas.login());
@@ -47,7 +48,7 @@ class FuncionarioApplicationService {
     public void removerFuncionario(long id) {
         Optional<Funcionario> funcionarioOptional = repository.findById(id);
         if (funcionarioOptional.isEmpty())
-            throw new FuncionarioNaoEncontradoException("Funcionario com id " + id + " nao encontrado");
+            throw new RecursoNaoEncontrado("Funcionario com id " + id + " nao encontrado");
         repository.deleteById(id);
     }
 }

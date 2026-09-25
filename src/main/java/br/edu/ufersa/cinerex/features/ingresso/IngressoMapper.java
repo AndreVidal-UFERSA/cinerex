@@ -5,7 +5,7 @@ import br.edu.ufersa.cinerex.features.ingresso.dto.IngressoResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface IngressoMapper {
+interface IngressoMapper {
     Ingresso toEntity(IngressoCreate ingressoCreate);
     IngressoResponse toResponse(Ingresso ingresso);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.edu.ufersa.cinerex.features.funcionario.dto.RequestPutFuncionario;
+import br.edu.ufersa.cinerex.shared.exceptions.RecursoNaoEncontrado;
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -61,7 +62,7 @@ class FuncionarioController {
         try {
             applicationService.atualizarTotal(id, requestPutFuncionario);
         }
-        catch (FuncionarioNaoEncontradoException ex) {
+        catch (RecursoNaoEncontrado ex) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
@@ -72,7 +73,7 @@ class FuncionarioController {
     public ResponseEntity<Void> deleteFuncionario(@PathVariable Long id) {
         try {
             applicationService.removerFuncionario(id);
-        } catch (FuncionarioNaoEncontradoException ex) {
+        } catch (RecursoNaoEncontrado ex) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
