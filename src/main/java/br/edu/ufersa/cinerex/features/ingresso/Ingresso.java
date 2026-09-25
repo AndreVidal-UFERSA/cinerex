@@ -1,4 +1,4 @@
-package br.edu.ufersa.cinerex.features.ingresso.domain;
+package br.edu.ufersa.cinerex.features.ingresso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -10,13 +10,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "ingresso")
-public class Ingresso {
+class Ingresso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +26,8 @@ public class Ingresso {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
 
-    @ManyToOne
-    @JoinColumn(name = "sessao_id", nullable = false)
-    private Sessao sessao;
-
+    @Column(name = "sessao_id", nullable = false)
+    private Long sessaoId;
 
     // Metodos de validacao
 
@@ -47,7 +43,7 @@ public class Ingresso {
     private static Sessao validarSessao(Sessao sessao) {
         Objects.requireNonNull(sessao, "Sessão não pode ser null");
         return sessao;
-    }
+    } // botar pra verificar no domain service
 
     private static Boolean validarMeia(Boolean meia) {
         Objects.requireNonNull(meia, "Meia nao pode ser null");

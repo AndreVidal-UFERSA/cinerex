@@ -1,13 +1,14 @@
-package br.edu.ufersa.cinerex.features.ingresso.api.dto;
+package br.edu.ufersa.cinerex.features.ingresso.dto;
 
-import br.edu.ufersa.cinerex.features.sessao.Sessao;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-//Se passam os parâmetros necessários para CRIAR um objeto
-public record IngressoCreateDTO(
+public record IngressoPatch(
+        @NotNull(message = "O id é obrigatório")
+        Long id,
+
         @NotNull(message = "O tipo do ingresso é obrigatório")
         Boolean meia,
 
@@ -16,4 +17,4 @@ public record IngressoCreateDTO(
         BigDecimal valor,
 
         @NotNull(message = "A sessão é obrigatória")
-        Sessao sessao){ }
+        Long sessaoId){ }
