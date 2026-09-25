@@ -6,9 +6,6 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public record IngressoPatch(
-        @NotNull(message = "O id é obrigatório")
-        Long id,
-
         @NotNull(message = "O tipo do ingresso é obrigatório")
         Boolean meia,
 

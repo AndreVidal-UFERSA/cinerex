@@ -3,8 +3,6 @@ package br.edu.ufersa.cinerex.features.ingresso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
-
-import br.edu.ufersa.cinerex.features.sessao.Sessao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,10 +38,10 @@ class Ingresso {
         return valor;
     }
 
-    private static Sessao validarSessao(Sessao sessao) {
-        Objects.requireNonNull(sessao, "Sessão não pode ser null");
-        return sessao;
-    } // botar pra verificar no domain service
+    private static Long validarSessaoId(Long sessaoId) {
+        Objects.requireNonNull(sessaoId, "Sessão não pode ser null");
+        return sessaoId;
+    }
 
     private static Boolean validarMeia(Boolean meia) {
         Objects.requireNonNull(meia, "Meia nao pode ser null");
@@ -53,16 +51,16 @@ class Ingresso {
     // Construtor vazio necessario para o Spring Data JPA
     protected Ingresso() {}
 
-    public Ingresso(Sessao sessao, BigDecimal valor, Boolean meia) {
-        this.sessao = validarSessao(sessao);
+    public Ingresso(Long sessaoId, BigDecimal valor, Boolean meia) {
+        this.sessaoId = validarSessaoId(sessaoId);
         this.meia = validarMeia(meia);
         this.valor = validarValor(valor);
         if (meia)
             this.valor = this.valor.divide(BigDecimal.TWO, RoundingMode.HALF_EVEN);
     }
 
-    public void alterarSessao(Sessao novaSessao) {
-        this.sessao = validarSessao(novaSessao);
+    public void alterarSessao(Long sessaoId) {
+        this.sessaoId = validarSessaoId(sessaoId);
     }
 
     public Long getId() {
@@ -71,8 +69,8 @@ class Ingresso {
     public BigDecimal getValor() {
         return valor;
     }
-    public Sessao getSessao() {
-        return sessao;
+    public Long getSessaoId() {
+        return sessaoId;
     }
     public Boolean isMeia() {
         return meia;
