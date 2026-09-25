@@ -1,5 +1,7 @@
 package br.edu.ufersa.cinerex.features.funcionario;
 
+import br.edu.ufersa.cinerex.features.funcionario.dto.FuncionarioResponse;
+import br.edu.ufersa.cinerex.features.funcionario.dto.RequestPostFuncionario;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,15 +10,15 @@ import java.util.Optional;
 @Service
 class FuncionarioApplicationService {
     private final FuncionarioRepository repository;
-    private final FuncionarioApplicationMapper mapper;
+    private final FuncionarioMapper mapper;
 
-    public FuncionarioApplicationService(FuncionarioRepository repository, FuncionarioApplicationMapper mapper) {
+    public FuncionarioApplicationService(FuncionarioRepository repository, FuncionarioMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
 
-    public Long criar(CriarFuncionarioCommand criarFuncionarioCommand) {
-        Funcionario funcionario = mapper.toEntity(criarFuncionarioCommand);
+    public Long criar(RequestPostFuncionario requestPostFuncionario) {
+        Funcionario funcionario = mapper.toEntity(requestPostFuncionario);
         Funcionario criado = repository.save(funcionario);
         return criado.getId();
     }

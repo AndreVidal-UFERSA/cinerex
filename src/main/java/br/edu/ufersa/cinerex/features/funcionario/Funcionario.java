@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "funcionario")
+@Table(name = "funcionarios")
 class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

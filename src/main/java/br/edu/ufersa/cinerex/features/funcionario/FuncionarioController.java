@@ -17,24 +17,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ufersa.cinerex.features.funcionario.dto.FuncionarioResponse;
+import br.edu.ufersa.cinerex.features.funcionario.dto.RequestPostFuncionario;
+
 @RestController
 @RequestMapping("/api/v1/funcionario")
 @Validated
-public class FuncionarioController {
+class FuncionarioController {
     private final FuncionarioApplicationService applicationService;
-    private final FuncionarioApiMapper mapper;
 
-    public FuncionarioController(FuncionarioApplicationService applicationService, FuncionarioApiMapper mapper) {
+    public FuncionarioController(FuncionarioApplicationService applicationService) {
         this.applicationService = applicationService;
-        this.mapper = mapper;
     }
 
     // CREATE
 
     @PostMapping
-    public ResponseEntity<Void> postFuncionario(@Valid @RequestBody FuncionarioPostRequest postFuncionarioRequest) {
-        CriarFuncionarioCommand command = mapper.toCommand(postFuncionarioRequest);
-        Long idCriado = applicationService.criar(command);
+    public ResponseEntity<Void> postFuncionario(@Valid @RequestBody RequestPostFuncionario requestPostFuncionario) {
+        Long idCriado = applicationService.criar(requestPostFuncionario);
         URI location = URI.create("/api/v1/funcionario/" + idCriado);
         return ResponseEntity.created(location).build();
     }

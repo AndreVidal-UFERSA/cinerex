@@ -2,8 +2,10 @@ package br.edu.ufersa.cinerex.features.sessao;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "sessao")
+@Table(name = "sessoes")
 class Sessao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +16,12 @@ class Sessao {
 
     @Column(name = "sala_id", nullable = false)
     private Long salaId;
+
+    @Column(nullable = false)
+    private LocalDateTime inicio;
+
+    @Column(nullable = false)
+    private LocalDateTime fim;
 
     protected Sessao() {}
 }
