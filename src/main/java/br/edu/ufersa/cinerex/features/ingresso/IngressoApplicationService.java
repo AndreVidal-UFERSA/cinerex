@@ -18,7 +18,7 @@ class IngressoApplicationService {
         }
 
         public Long criar(IngressoCreate ingressoCreate) {
-            Ingresso ingresso = mapper.toEntity(IngressoCreate);
+            Ingresso ingresso = mapper.toEntity(ingressoCreate);
             Ingresso criado = repository.save(ingresso);
             return criado.getId();
         }
