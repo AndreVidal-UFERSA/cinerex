@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import br.edu.ufersa.cinerex.features.funcionario.dto.RequestPutFuncionario;
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,6 @@ class FuncionarioController {
     }
 
     // READ
-
     @GetMapping
     public ResponseEntity<List<FuncionarioResponse>> getFuncionarios() {
         return ResponseEntity.ok(applicationService.listar());
@@ -57,13 +57,24 @@ class FuncionarioController {
 
     // UPDATE
     @PutMapping("/{id}")
-    public ResponseEntity<Void> putFuncionario(@PathVariable Long id, @RequestBody Object putFuncionarioRequest) {
-        return null;
+    public ResponseEntity<Void> putFuncionario(@PathVariable Long id, @RequestBody RequestPutFuncionario requestPutFuncionario) {
+        try {
+            applicationService.atualizarTotal(id, requestPutFuncionario);
+        }
+        catch (FuncionarioNaoEncontradoException ex) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 
     // DELETE
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFuncionario(@PathVariable Long id) {
-        return null;
+        try {
+            applicationService.removerFuncionario(id);
+        } catch (FuncionarioNaoEncontradoException ex) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 }

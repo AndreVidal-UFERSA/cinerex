@@ -79,6 +79,22 @@ class Funcionario {
         this.salario = validarSalario(salario);
     }
 
+    public void alterarNome(String novoNome) {
+        this.nome = validarNome(novoNome);
+    }
+
+    public void alterarLogin(String novoLogin) {
+        this.login = validarLogin(novoLogin);
+    }
+
+    public void alterarSenha(String novaSenha) {
+        this.senha = validarSenha(novaSenha);
+    }
+
+    public void alterarSalario(BigDecimal novoSalario) {
+        this.salario = validarSalario(novoSalario);
+    }
+
     public Long getId() {
         return id;
     }
