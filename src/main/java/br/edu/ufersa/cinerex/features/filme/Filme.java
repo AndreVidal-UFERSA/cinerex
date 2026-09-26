@@ -1,6 +1,7 @@
 package br.edu.ufersa.cinerex.features.filme;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +23,9 @@ class Filme {
 
     @Column(nullable = false, length = 100)
     private String diretor;
+
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal preco;
 
     // Metodos de validacao
     private static String validarNome(String nome) {
@@ -46,14 +50,21 @@ class Filme {
         return diretor;
     }
 
+    private static BigDecimal validarPreco(BigDecimal preco) {
+        Objects.requireNonNull(preco, "Preco nao pode ser null");
+        if (preco.compareTo(BigDecimal.ZERO) <= 0) throw new IllegalArgumentException("Preco deve ser maior que zero");
+        return preco;
+    }
+
     // Construtor vazio necessario para o Spring Data JPA
     protected Filme() {}
 
-    public Filme(String nome, Classificacao classificacao, Integer ano, String diretor) {
+    public Filme(String nome, Classificacao classificacao, Integer ano, String diretor, BigDecimal preco) {
         this.nome = validarNome(nome);
         this.classificacao = validarClassificacao(classificacao);
         this.ano = validarAno(ano);
         this.diretor = validarDiretor(diretor);
+        this.preco = validarPreco(preco);
     }
 
     public void alterarNome(String novoNome) {
@@ -90,5 +101,13 @@ class Filme {
 
     public String getDiretor() {
         return diretor;
+    }
+
+    public void alterarPreco(BigDecimal novoPreco) {
+        this.preco = validarPreco(novoPreco);
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
     }
 }
