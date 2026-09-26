@@ -2,27 +2,19 @@ package br.edu.ufersa.cinerex.features.sala;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
 
 @Entity
 @Table(name = "sala")
-public class Sala {
+class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Enumerated(EnumType.STRING)
-    @Column (name = "Status", nullable = false)
-    private StatusSala Status;
-
-    @Enumerated(EnumType.STRING)
-    @Column (name = "Tipo", nullable = false)
-    private TipoSala tipoSala;
 
     @Column(name = "numero", nullable = false, unique = true)
     private Integer numero;
@@ -30,39 +22,49 @@ public class Sala {
     @Column(name = "numero_assentos", nullable = false)
     private Integer numeroAssentos;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo", nullable = false, length = 20)
+    private TipoSala tipoSala;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, length = 20)
+    private StatusSala status;
+
+    // Guarda apenas o id do filme (feature "filme" e package-private,
+    // nao podemos ter @ManyToOne para a entidade Filme nem acessar seu repository)
+    @Column(name = "filme_id")
+    private Long filmeId;
+
     // Metodos de validacao
     private static Integer validarNumero(Integer numero) {
-        if (numero <= 0) throw new IllegalArgumentException("Numero da sala deve ser maior que zero");
+        if (numero == null || numero <= 0) throw new IllegalArgumentException("Numero da sala deve ser maior que zero");
         return numero;
     }
 
     private static Integer validarNumeroAssentos(Integer numeroAssentos) {
-        if (numeroAssentos <= 0) throw new IllegalArgumentException("Numero de assentos deve ser maior que zero");
+        if (numeroAssentos == null || numeroAssentos <= 0) throw new IllegalArgumentException("Numero de assentos deve ser maior que zero");
         return numeroAssentos;
     }
 
     private static TipoSala validarTipoSala(TipoSala tipoSala) {
-        if (tipoSala == null) {
-            throw new IllegalArgumentException("O tipo da sala não pode ser nulo");
-        }
+        if (tipoSala == null) throw new IllegalArgumentException("O tipo da sala nao pode ser nulo");
         return tipoSala;
     }
 
-    private static StatusSala validarStatusSala(StatusSala status) {
-        if (status == null) {
-            throw new IllegalArgumentException("O status da sala não pode ser nulo");
-        }
+    private static StatusSala validarStatus(StatusSala status) {
+        if (status == null) throw new IllegalArgumentException("O status da sala nao pode ser nulo");
         return status;
     }
 
-    // Contrutor vazio necessario para o Spring Data JPA
+    // Construtor vazio necessario para o Spring Data JPA
     protected Sala() {}
 
     public Sala(Integer numero, Integer numeroAssentos, TipoSala tipoSala) {
         this.numero = validarNumero(numero);
         this.numeroAssentos = validarNumeroAssentos(numeroAssentos);
-        this.tipoSala = tipoSala;
-        this.Status = StatusSala.LIVRE;
+        this.tipoSala = validarTipoSala(tipoSala);
+        this.status = StatusSala.NORMAL;
+        this.filmeId = null;
     }
 
     public void alterarNumero(Integer novoNumero) {
@@ -74,28 +76,38 @@ public class Sala {
     }
 
     public void alterarStatus(StatusSala novoStatus) {
-        if (novoStatus == null) {
-            throw new IllegalArgumentException("O status da sala não pode ser nulo");
-        }
-        this.Status = novoStatus;
+        this.status = validarStatus(novoStatus);
     }
 
     public void alterarTipoSala(TipoSala novoTipoSala) {
-        if (novoTipoSala == null) {
-            throw new IllegalArgumentException("O tipo da sala não pode ser nulo");
-        }
-        this.tipoSala = novoTipoSala;
+        this.tipoSala = validarTipoSala(novoTipoSala);
+    }
+
+    public void definirFilmeEmExibicao(Long novoFilmeId) {
+        this.filmeId = novoFilmeId;
     }
 
     public Long getId() {
         return id;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public int getNumeroAssentos() {
+    public Integer getNumeroAssentos() {
         return numeroAssentos;
+    }
+
+    public TipoSala getTipoSala() {
+        return tipoSala;
+    }
+
+    public StatusSala getStatus() {
+        return status;
+    }
+
+    public Long getFilmeId() {
+        return filmeId;
     }
 }
