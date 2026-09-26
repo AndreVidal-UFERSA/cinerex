@@ -42,6 +42,7 @@ class FilmeApplicationService {
         filme.alterarClassificacao(mudancas.classificacao());
         filme.alterarAno(mudancas.ano());
         filme.alterarDiretor(mudancas.diretor());
+        filme.alterarPreco(mudancas.preco());
         repository.save(filme);
     }
 
