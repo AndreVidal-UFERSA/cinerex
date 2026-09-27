@@ -30,11 +30,6 @@ class Sala {
     @Column(name = "status", nullable = false, length = 20)
     private StatusSala status;
 
-    // Guarda apenas o id do filme (feature "filme" e package-private,
-    // nao podemos ter @ManyToOne para a entidade Filme nem acessar seu repository)
-    @Column(name = "filme_id")
-    private Long filmeId;
-
     // Metodos de validacao
     private static Integer validarNumero(Integer numero) {
         if (numero == null || numero <= 0) throw new IllegalArgumentException("Numero da sala deve ser maior que zero");
@@ -64,7 +59,6 @@ class Sala {
         this.numeroAssentos = validarNumeroAssentos(numeroAssentos);
         this.tipoSala = validarTipoSala(tipoSala);
         this.status = StatusSala.NORMAL;
-        this.filmeId = null;
     }
 
     public void alterarNumero(Integer novoNumero) {
@@ -81,10 +75,6 @@ class Sala {
 
     public void alterarTipoSala(TipoSala novoTipoSala) {
         this.tipoSala = validarTipoSala(novoTipoSala);
-    }
-
-    public void definirFilmeEmExibicao(Long novoFilmeId) {
-        this.filmeId = novoFilmeId;
     }
 
     public Long getId() {
@@ -105,9 +95,5 @@ class Sala {
 
     public StatusSala getStatus() {
         return status;
-    }
-
-    public Long getFilmeId() {
-        return filmeId;
     }
 }

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/sala")
 @Validated
-public class SalaController {
+class SalaController {
 
     private final SalaApplicationService applicationService;
 

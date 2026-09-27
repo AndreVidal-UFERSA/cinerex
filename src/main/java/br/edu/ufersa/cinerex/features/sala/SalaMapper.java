@@ -5,7 +5,7 @@ import br.edu.ufersa.cinerex.features.sala.dto.SalaResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface SalaMapper {
+interface SalaMapper {
     Sala toEntity(RequestPostSala requestPostSala);
     SalaResponse toResponse(Sala sala);
 }
