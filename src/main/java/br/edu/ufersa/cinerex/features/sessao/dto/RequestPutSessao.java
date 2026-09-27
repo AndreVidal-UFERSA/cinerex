@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record RequestPostSessao(
+public record RequestPutSessao(
         @NotNull Long filmeId,
         @NotNull Long salaId,
         @NotNull @Future LocalDateTime inicio,

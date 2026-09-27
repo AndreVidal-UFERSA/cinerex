@@ -1,48 +1,69 @@
 package br.edu.ufersa.cinerex.features.sessao;
 
+import br.edu.ufersa.cinerex.features.sessao.dto.RequestPostSessao;
+import br.edu.ufersa.cinerex.features.sessao.dto.RequestPutSessao;
+import br.edu.ufersa.cinerex.features.sessao.dto.SessaoResponse;
+import br.edu.ufersa.cinerex.shared.exceptions.RecursoNaoEncontrado;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/sessao")
-public class SessaoController {
+@RequestMapping("/api/v1/sessoes")
+@Validated
+class SessaoController {
+    private final SessaoApplicationService applicationService;
+
+    public SessaoController(SessaoApplicationService applicationService) {
+        this.applicationService = applicationService;
+    }
     // CREATE
 
     @PostMapping
-    public ResponseEntity<Void> putSessao(@RequestBody Object sessao) {
-        return null;
+    public ResponseEntity<Void> putSessao(@Valid @RequestBody RequestPostSessao requestPostSessao) {
+        Long idCriado = applicationService.criar(requestPostSessao);
+        URI uri = URI.create("/api/v1/sessoes/" + idCriado);
+        return ResponseEntity.created(uri).build();
     }
 
     // READ
 
     @GetMapping
-    public ResponseEntity<Void> getSessoes() {
-        return null;
+    public List<SessaoResponse> getSessoes() {
+        return applicationService.listar();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Void> getSessao(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<SessaoResponse> getSessao(@PathVariable Long id) {
+        Optional<SessaoResponse> sessaoResponse = applicationService.buscar(id);
+        if (sessaoResponse.isEmpty())
+            return ResponseEntity.notFound().build();
+        else
+            return ResponseEntity.ok(sessaoResponse.get());
     }
 
     // UPDATE
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> putSessao(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<Void> putSessao(@PathVariable Long id, @Valid @RequestBody RequestPutSessao requestPutSessao) {
+        try {
+            applicationService.atualizarTotal(id, requestPutSessao);
+            return ResponseEntity.noContent().build();
+        } catch (RecursoNaoEncontrado ex) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // DELETE
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSessao(@PathVariable Long id) {
-        return null;
+        applicationService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }

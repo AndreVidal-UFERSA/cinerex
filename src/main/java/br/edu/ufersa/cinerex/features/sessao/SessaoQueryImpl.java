@@ -1,18 +1,22 @@
 package br.edu.ufersa.cinerex.features.sessao;
 
+import br.edu.ufersa.cinerex.features.sessao.dto.SessaoResponse;
+import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
+@Service
 class SessaoQueryImpl implements SessaoQuery {
-    private final SessaoRepository repository;
     private final SessaoMapper mapper;
+    private final SessaoRepository repository;
 
-    public SessaoQueryImpl(SessaoRepository repository, SessaoMapper mapper) {
-        this.repository = repository;
+    public SessaoQueryImpl(SessaoMapper mapper, SessaoRepository repository) {
         this.mapper = mapper;
+        this.repository = repository;
     }
 
     @Override
-    public Optional<SessaoDTO> buscar(Long id) {
+    public Optional<SessaoResponse> buscar(Long id) {
         return repository.findById(id).map(mapper::toDTO);
     }
 }

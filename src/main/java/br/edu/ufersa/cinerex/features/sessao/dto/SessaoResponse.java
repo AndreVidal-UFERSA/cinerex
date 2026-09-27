@@ -1,8 +1,8 @@
-package br.edu.ufersa.cinerex.features.sessao;
+package br.edu.ufersa.cinerex.features.sessao.dto;
 
 import java.time.LocalDateTime;
 
-public record SessaoDTO(
+public record SessaoResponse(
         Long id,
         Long filmeId,
         Long salaId,
