@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/filme")
 @Validated
-public class FilmeController {
+class FilmeController {
 
     private final FilmeApplicationService applicationService;
 
