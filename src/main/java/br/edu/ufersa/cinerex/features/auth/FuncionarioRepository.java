@@ -1,10 +1,12 @@
-package br.edu.ufersa.cinerex.features.funcionario;
+package br.edu.ufersa.cinerex.features.auth;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
-    Funcionario findByLogin(String login);
-    boolean existsByCpfOrLogin(String cpf, String login);
+    Optional<Funcionario> findByEmail(String email);
+    boolean existsByEmail();
 }

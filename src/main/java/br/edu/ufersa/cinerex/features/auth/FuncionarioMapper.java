@@ -1,7 +1,7 @@
-package br.edu.ufersa.cinerex.features.funcionario;
+package br.edu.ufersa.cinerex.features.auth;
 
-import br.edu.ufersa.cinerex.features.funcionario.dto.FuncionarioResponse;
-import br.edu.ufersa.cinerex.features.funcionario.dto.RequestPostFuncionario;
+import br.edu.ufersa.cinerex.features.auth.dto.FuncionarioResponse;
+import br.edu.ufersa.cinerex.features.auth.dto.RequestPostFuncionario;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
