@@ -2,16 +2,12 @@ package br.edu.ufersa.cinerex.features.ingresso;
 
 import br.edu.ufersa.cinerex.features.ingresso.dto.IngressoCreate;
 import br.edu.ufersa.cinerex.features.ingresso.dto.IngressoResponse;
-import br.edu.ufersa.cinerex.features.ingresso.dto.IngressoUpdate;
-import br.edu.ufersa.cinerex.shared.exceptions.RecursoNaoEncontrado;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @Validated
 @RestController
@@ -39,34 +35,21 @@ class IngressoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<IngressoResponse> getIngresso(@PathVariable Long id) {
-        Optional<IngressoResponse> ingressoResponseOptional = service.encontrar(id);
-        if (ingressoResponseOptional.isEmpty())
-            return ResponseEntity.notFound().build();
-        else
-            return ResponseEntity.ok(ingressoResponseOptional.get());
+        IngressoResponse ingressoResponse = service.encontrar(id);
+        return ResponseEntity.ok(ingressoResponse);
+
     }
 
-
-    //ATUALIZAR COMPLETAMENTE
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> putIngresso(@PathVariable Long id, @RequestBody IngressoUpdate ingressoUpdate) {
-        try {
-            service.atualizarTotal(id, ingressoUpdate);
-        }
-        catch (RecursoNaoEncontrado ex) {
-            return ResponseEntity.notFound().build();
-        }
+    // Edita status
+    @PatchMapping("/{id}/cancelar")
+    public ResponseEntity<Void> cancelarIngresso(@PathVariable Long id) {
+        service.cancelar(id);
         return ResponseEntity.noContent().build();
     }
 
-    // DELETE
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteIngresso(@PathVariable Long id) {
-        try {
-            service.removerIngresso(id);
-        } catch (RecursoNaoEncontrado ex) {
-            return ResponseEntity.notFound().build();
-        }
+    @PatchMapping("/{id}/utilizar")
+    public ResponseEntity<Void> utilizarIngresso(@PathVariable Long id) {
+        service.utilizar(id);
         return ResponseEntity.noContent().build();
     }
 }
