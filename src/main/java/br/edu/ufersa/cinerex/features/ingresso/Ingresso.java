@@ -88,7 +88,7 @@ class Ingresso {
     public IngressoStatus getStatus(){
         return status;
     }
-    public Boolean isMeia() {
+    public Boolean getMeia() {
         return meia;
     }
 }

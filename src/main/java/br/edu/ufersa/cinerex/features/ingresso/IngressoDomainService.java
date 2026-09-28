@@ -5,9 +5,11 @@ import br.edu.ufersa.cinerex.features.ingresso.dto.IngressoCreate;
 import br.edu.ufersa.cinerex.features.sala.SalaQuery;
 import br.edu.ufersa.cinerex.features.sessao.SessaoQuery;
 import br.edu.ufersa.cinerex.shared.exceptions.RecursoNaoEncontrado;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Service
 class IngressoDomainService {
     private final FilmeQuery filmeQuery;
     private final SalaQuery salaQuery;
@@ -17,13 +19,6 @@ class IngressoDomainService {
         this.filmeQuery = filmeQuery;
         this.salaQuery = salaQuery;
         this.sessaoQuery = sessaoQuery;
-    }
-
-    public void validarCriacao(IngressoCreate dto) {
-        var resultado = sessaoQuery.buscar(dto.sessaoId());
-        if (resultado.isEmpty()) {
-            throw new RecursoNaoEncontrado("A sessão é inexistente");
-        }
     }
 
     public BigDecimal calcularValor(IngressoCreate dto) {
