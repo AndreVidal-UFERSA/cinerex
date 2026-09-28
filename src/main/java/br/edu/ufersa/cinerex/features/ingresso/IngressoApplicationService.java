@@ -6,6 +6,7 @@ import br.edu.ufersa.cinerex.shared.exceptions.RecursoNaoEncontrado;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +25,12 @@ class IngressoApplicationService {
 
     @Transactional
     public IngressoResponse criar(IngressoCreate ingressoCreate) {
-        ingressoDomainService.validarCriacao(ingressoCreate);
-        Ingresso ingresso = mapper.toEntity(ingressoCreate);
+        BigDecimal valor = ingressoDomainService.calcularValor(ingressoCreate);
+        Ingresso ingresso = new Ingresso(
+                ingressoCreate.sessaoId(),
+                valor,
+                ingressoCreate.meia()
+        );
         Ingresso criado = repository.save(ingresso);
         return mapper.toResponse(criado);
     }

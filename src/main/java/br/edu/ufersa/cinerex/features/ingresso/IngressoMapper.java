@@ -6,6 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 interface IngressoMapper {
-    Ingresso toEntity(IngressoCreate ingressoCreate);
     IngressoResponse toResponse(Ingresso ingresso);
 }
