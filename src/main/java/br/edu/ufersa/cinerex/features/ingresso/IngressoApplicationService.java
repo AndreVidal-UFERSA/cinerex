@@ -25,7 +25,8 @@ class IngressoApplicationService {
     @Transactional
     public IngressoResponse criar(IngressoCreate ingressoCreate) {
         ingressoDomainService.validarCriacao(ingressoCreate);
-        Ingresso ingresso = mapper.toEntity(ingressoCreate);Ingresso criado = repository.save(ingresso);
+        Ingresso ingresso = mapper.toEntity(ingressoCreate);
+        Ingresso criado = repository.save(ingresso);
         return mapper.toResponse(criado);
     }
 

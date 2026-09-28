@@ -50,14 +50,14 @@ class Ingresso {
 
     public void cancelar(){
         if (status != IngressoStatus.CONFIRMADO){
-            throw new mudancaIndevidaException("O ingresso não pode ser cancelado!");
+            throw new MudancaIndevidaException("O ingresso não pode ser cancelado!");
         }
         status = IngressoStatus.CANCELADO;
     }
 
     public void utilizar(){
         if (status != IngressoStatus.CONFIRMADO){
-            throw new mudancaIndevidaException("O ingresso não pode ser utilizado");
+            throw new MudancaIndevidaException("O ingresso não pode ser utilizado");
         }
         status = IngressoStatus.UTILIZADO;
     }
