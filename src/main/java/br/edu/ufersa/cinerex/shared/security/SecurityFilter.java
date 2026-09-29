@@ -38,6 +38,14 @@ public class SecurityFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
+        System.out.println("URI: " + request.getRequestURI());
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            System.out.println("SEM AUTENTICACAO");
+        } else {
+            System.out.println("USUARIO: " + auth.getName());
+            System.out.println("AUTHORITIES: " + auth.getAuthorities());
+        }
         filterChain.doFilter(request, response);
     }
 
