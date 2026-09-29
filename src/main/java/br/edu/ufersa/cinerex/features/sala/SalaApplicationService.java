@@ -49,7 +49,7 @@ class SalaApplicationService {
         sala.alterarNumero(mudancas.numero());
         sala.alterarNumeroAssentos(mudancas.numeroAssentos());
         sala.alterarTipoSala(mudancas.tipoSala());
-        sala.alterarStatus(mudancas.statusSala());
+        sala.alterarStatusSala(mudancas.statusSala());
         repository.save(sala);
     }
 

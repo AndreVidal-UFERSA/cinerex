@@ -28,7 +28,7 @@ class Sala {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
-    private StatusSala status;
+    private StatusSala statusSala;
 
     // Metodos de validacao
     private static Integer validarNumero(Integer numero) {
@@ -46,7 +46,7 @@ class Sala {
         return tipoSala;
     }
 
-    private static StatusSala validarStatus(StatusSala status) {
+    private static StatusSala validarStatusSala(StatusSala status) {
         if (status == null) throw new IllegalArgumentException("O status da sala nao pode ser nulo");
         return status;
     }
@@ -54,11 +54,11 @@ class Sala {
     // Construtor vazio necessario para o Spring Data JPA
     protected Sala() {}
 
-    public Sala(Integer numero, Integer numeroAssentos, TipoSala tipoSala) {
+    public Sala(Integer numero, Integer numeroAssentos, TipoSala tipoSala, StatusSala statusSala) {
         this.numero = validarNumero(numero);
         this.numeroAssentos = validarNumeroAssentos(numeroAssentos);
         this.tipoSala = validarTipoSala(tipoSala);
-        this.status = StatusSala.NORMAL;
+        this.statusSala = validarStatusSala(statusSala);
     }
 
     public void alterarNumero(Integer novoNumero) {
@@ -69,8 +69,8 @@ class Sala {
         this.numeroAssentos = validarNumeroAssentos(novoNumeroAssentos);
     }
 
-    public void alterarStatus(StatusSala novoStatus) {
-        this.status = validarStatus(novoStatus);
+    public void alterarStatusSala(StatusSala novoStatusSala) {
+        this.statusSala = validarStatusSala(novoStatusSala);
     }
 
     public void alterarTipoSala(TipoSala novoTipoSala) {
@@ -93,7 +93,7 @@ class Sala {
         return tipoSala;
     }
 
-    public StatusSala getStatus() {
-        return status;
+    public StatusSala getStatusSala() {
+        return statusSala;
     }
 }
