@@ -50,7 +50,6 @@ class SalaApplicationService {
         sala.alterarNumeroAssentos(mudancas.numeroAssentos());
         sala.alterarTipoSala(mudancas.tipoSala());
         sala.alterarStatus(mudancas.status());
-        sala.definirFilmeEmExibicao(mudancas.filmeId());
         repository.save(sala);
     }
 

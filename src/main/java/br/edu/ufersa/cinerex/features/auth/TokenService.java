@@ -12,7 +12,7 @@ import java.time.temporal.ChronoUnit;
 public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
-    public String generateToken(Funcionario usu) {
+    public String generateToken(Usuario usu) {
         Algorithm algorithm = Algorithm.HMAC256(secret);
         return JWT.create()
                 .withIssuer("cinerex-api")

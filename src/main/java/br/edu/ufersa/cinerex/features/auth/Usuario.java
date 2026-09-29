@@ -5,19 +5,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "funcionario")
-class Funcionario implements UserDetails {
+@Table(name = "usuario")
+class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String nome;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -28,13 +26,7 @@ class Funcionario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    protected Funcionario() {}
-
-    private static String validarNome(String nome) {
-        if (nome == null) throw new IllegalArgumentException("Nome nao pode ser null");
-        if (nome.isBlank()) throw new IllegalArgumentException("Nome nao pode ser vazio");
-        return nome;
-    }
+    protected Usuario() {}
 
     private static String validarEmail(String email) {
         if (email == null) throw new IllegalArgumentException("Email nao pode ser null");
@@ -48,8 +40,7 @@ class Funcionario implements UserDetails {
         return senha;
     }
 
-    public Funcionario(String nome, String email, String senha, UserRole userRole) {
-        this.nome = validarNome(nome);
+    public Usuario(String email, String senha, UserRole userRole) {
         this.email = validarEmail(email);
         this.senha = validarSenha(senha);
         this.userRole = Objects.requireNonNull(userRole);
@@ -57,10 +48,6 @@ class Funcionario implements UserDetails {
 
     public Long getId() {
         return id;
-    }
-
-    public String getNome() {
-        return nome;
     }
 
     public String getEmail() {

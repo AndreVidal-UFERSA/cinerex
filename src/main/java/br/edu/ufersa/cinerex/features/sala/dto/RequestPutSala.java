@@ -9,7 +9,6 @@ public record RequestPutSala(
         @NotNull @Positive Integer numero,
         @NotNull @Positive Integer numeroAssentos,
         @NotNull TipoSala tipoSala,
-        @NotNull StatusSala status,
-        Long filmeId
+        @NotNull StatusSala status
 ) {
 }

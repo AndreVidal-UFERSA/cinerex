@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 class UserDetailsServiceImpl implements UserDetailsService {
-    private final FuncionarioRepository funcionarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public UserDetailsServiceImpl(FuncionarioRepository funcionarioRepository) {
-        this.funcionarioRepository = funcionarioRepository;
+    public UserDetailsServiceImpl(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return funcionarioRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuario nao encontrado"));
+        return usuarioRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuario nao encontrado"));
     }
 }

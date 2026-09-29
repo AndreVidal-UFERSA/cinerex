@@ -1,7 +1,7 @@
 package br.edu.ufersa.cinerex.features.auth;
 
 public enum UserRole {
-    FUNCIONARIO("ROLE_FUNCIONARIO"),
+    USUARIO("ROLE_USUARIO"),
     ADMINISTRADOR("ROLE_ADMINISTRADOR");
 
     private final String funcao;
