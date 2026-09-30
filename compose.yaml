@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: cinerex-db
+      POSTGRES_USER: cinerex-user
+      POSTGRES_PASSWORD: 658de340c7a0cff5
+  cinerex:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/cinerex-db
+      DB_USER: cinerex-user
+      DB_PASSWORD: 658de340c7a0cff5
+      SPRING_PROFILES_DEFAULT: prod
+      TOKEN_SECRET: bZqy/SPigIAXtrPQu9c1LrZ+xa8X41sUbGOPv4AT0Hc=
+    ports:
+      - "8080:8080"
