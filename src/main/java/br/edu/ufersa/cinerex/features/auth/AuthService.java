@@ -15,11 +15,11 @@ class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Long registrar(String email, String senha) {
+    public Long registrar(String email, String senha, String nome) {
         if (usuarioRepository.existsByEmail(email))
             throw new RecursoJaExiste("Usuario com login fornecido ja existe");
         String senhaCriptografada = passwordEncoder.encode(senha);
-        Usuario novoUsuario = new Usuario(email, senhaCriptografada, UserRole.USUARIO);
+        Usuario novoUsuario = new Usuario(email, senhaCriptografada, nome, UserRole.USUARIO);
         Usuario usuarioSalvo = usuarioRepository.save(novoUsuario);
         return usuarioSalvo.getId();
     }

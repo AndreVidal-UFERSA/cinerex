@@ -9,5 +9,6 @@ import java.math.BigDecimal;
 
 public record RequestRegister(
         @NotBlank @Email String email,
-        @NotBlank String senha
+        @NotBlank String senha,
+        @NotBlank String nome
 ) {}

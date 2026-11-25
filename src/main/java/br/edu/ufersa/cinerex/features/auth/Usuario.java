@@ -17,6 +17,9 @@ class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String nome;
+
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -40,10 +43,17 @@ class Usuario implements UserDetails {
         return senha;
     }
 
-    public Usuario(String email, String senha, UserRole userRole) {
+    private static String validarNome(String nome) {
+        if (nome == null) throw new IllegalArgumentException("Nome nao pode ser null");
+        if (nome.isBlank()) throw new IllegalArgumentException("Nome nao pode ser vazio");
+        return nome;
+    }
+
+    public Usuario(String email, String senha, String nome, UserRole userRole) {
         this.email = validarEmail(email);
         this.senha = validarSenha(senha);
         this.userRole = Objects.requireNonNull(userRole);
+        this.nome = validarNome(nome);
     }
 
     public Long getId() {
@@ -56,6 +66,10 @@ class Usuario implements UserDetails {
 
     public String getSenha() {
         return senha;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public UserRole getUserRole() {

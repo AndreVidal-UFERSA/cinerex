@@ -1,6 +1,7 @@
 package br.edu.ufersa.cinerex.features.auth;
 
 import br.edu.ufersa.cinerex.features.auth.dto.LoginRequest;
+import br.edu.ufersa.cinerex.features.auth.dto.MeResponse;
 import br.edu.ufersa.cinerex.features.auth.dto.RequestRegister;
 import br.edu.ufersa.cinerex.features.auth.dto.TokenResponse;
 import br.edu.ufersa.cinerex.shared.exceptions.RecursoJaExiste;
@@ -40,7 +41,7 @@ class AuthController {
     @PostMapping("/register")
     public ResponseEntity<Void> registrar(@RequestBody @Valid RequestRegister requestRegister) {
         try {
-            Long idGerado = authService.registrar(requestRegister.email(), requestRegister.senha());
+            Long idGerado = authService.registrar(requestRegister.email(), requestRegister.senha(), requestRegister.nome());
             return ResponseEntity.ok().build();
         } catch (RecursoJaExiste ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
